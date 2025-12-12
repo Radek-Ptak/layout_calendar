@@ -1,9 +1,52 @@
-$cell-size: 100px;
-$border-size: 1px;
-$gap: 1px;
-$cols: 7;
-$padding: 10px;
-$border-size: 1px;
-$background-color: #eee;
-$background-color-hover: #ffbfcb;
-$font: Arial, sans-serif;
+@use './utils/variables.scss' as *;
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+  padding: $padding;
+  width: calc(
+    #{$cols} * #{$cell-size} + (#{$cols} - 1) * #{$gap} + 2 * #{$padding}
+  );
+
+  &__day {
+    box-sizing: border-box;
+    display: flex;
+    width: $cell-size;
+    height: $cell-size;
+    border: $border-size solid black;
+    background-color: $background-color;
+    justify-content: center;
+    align-items: center;
+    transition:
+      transform 0.5s,
+      background-color 0.5s;
+
+    &:hover {
+      cursor: pointer;
+      background: $background-color-hover;
+      transform: translateY(-20px);
+    }
+  }
+}
+
+@each $name, $index in (sun: 1, mon: 2, tue: 3, wed: 4, thu: 5, fri: 6, sat: 7)
+{
+  .calendar--#{$name} .calendar__day:first-child {
+    margin-left: calc((#{$index} - 1) * (#{$cell-size} + #{$gap}));
+  }
+}
+
+@for $i from 1 through 31 {
+  .calendar__day:nth-child(#{$i})::before {
+    content: '#{$i}';
+    font-family: $font;
+    font-size: 30px;
+  }
+}
+
+@for $l from 28 through 31 {
+  .calendar--length-#{$l} .calendar__day:nth-child(n + #{ $l + 1 }) {
+    display: none;
+  }
+}
