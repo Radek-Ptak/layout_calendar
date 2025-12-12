@@ -5,9 +5,7 @@
   flex-wrap: wrap;
   gap: $gap;
   padding: $padding;
-  width: calc(
-    #{$cols} * #{$cell-size} + (#{$cols} - 1) * #{$gap} + 2 * #{$padding}
-  );
+  width: calc(#{$cols} * #{$cell-size} + (#{$cols} - 1) * #{$gap});
 
   &__day {
     box-sizing: border-box;
