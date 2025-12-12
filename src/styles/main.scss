@@ -30,10 +30,10 @@
   }
 }
 
-@each $name, $index in (sun: 1, mon: 2, tue: 3, wed: 4, thu: 5, fri: 6, sat: 7)
+@each $name, $offset in (mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6)
 {
-  .calendar--#{$name} .calendar__day:first-child {
-    margin-left: calc((#{$index} - 1) * (#{$cell-size} + #{$gap}));
+  .calendar--start-day-#{$name} .calendar__day:first-child {
+    margin-left: calc((#{$offset}) * (#{$cell-size} + #{$gap}));
   }
 }
 
@@ -46,7 +46,7 @@
 }
 
 @for $l from 28 through 31 {
-  .calendar--length-#{$l} .calendar__day:nth-child(n + #{ $l + 1 }) {
+  .calendar--month-length-#{$l} .calendar__day:nth-child(n + #{ $l + 1 }) {
     display: none;
   }
 }
